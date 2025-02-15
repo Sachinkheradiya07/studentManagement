@@ -1,0 +1,153 @@
+curl -X POST http://localhost:8080/staff/register \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "sachin",
+    "role":"admin",
+    "email": "sachinkheradiya015@gmail.com",
+    "password": "Sachin@123"
+}'
+###
+curl -X POST http://localhost:8080/staff/register \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "sachin",
+    "role":"teacher",
+    "email": "sachinkheradiya01@gmail.com",
+    "password": "Sachin@123"
+}'
+
+###
+curl -X POST http://localhost:8080/staff/login \
+-H "Content-Type: application/json" \
+-d '{
+    "email": "sachinkheradiya01@gmail.com",
+   "password": "Sachin@123"
+}'
+###
+curl -X POST http://localhost:8080/staff/login \
+-H "Content-Type: application/json" \
+-d '{
+    
+    "email": "sachinkheradiya015@gmail.com",
+    "password": "Sachin@123"
+}'
+
+//teachers 
+###
+curl -X POST http://localhost:8080/teacher/register \
+-H "Content-Type: application/json" \
+-H "token":"f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4" \
+-d '{
+    "name": "kesha",
+    "gender": "Female",
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "state": "Gujarat"
+    },
+    "classes": [6, 7, 8]
+}'
+###
+curl -X PUT  http://localhost:8080/teacher/update/67afce2469e40645d696fcdc \
+-H "Content-Type: application/json" \
+-H "token":"f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4" \
+-d '{
+    "name": "sachin",
+    "gender": "Male",
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "state": "NY"
+    },
+    "classes": [1, 2, 3]
+}'
+###
+
+curl -X DELETE http://localhost:8080/teacher/delete/67afce2469e40645d696fcdc \
+-H "Content-Type: application/json" \
+-H "token:f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4"
+
+###
+
+curl -X GET http://localhost:8080/teacher/get/67afce2469e40645d696fcdc \
+-H "Content-Type: application/json" \
+-H "token":f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4"
+
+###
+curl -X GET http://localhost:8080/teacher/getall \
+-H "Content-Type: application/json" \
+-H "token":f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4"
+
+###
+
+curl -X POST http://localhost:8080/student/register \
+-H "Content-Type: application/json" \
+-H "token:8992e87e5967aa2d17b7adbfc17aadcdb799976e6a4a0fbc39d925bd7696d887" \
+-d '{
+    "name": "Dev",
+    "fatherName": "Father",
+    "motherName": "Mother",
+    "contactNo": "9016411168",
+    "DOB": "15/05/1000",
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "state": "gujarat"
+    },
+    "gender": "Male",
+    "class": 6
+}'
+###
+
+curl -X PUT  http://localhost:8080/student/update/67afd0bcac1eda9c597eedce \
+-H "Content-Type: application/json" \
+-H "token:521eeb11b35755bc5556f3905df81534f42429c6474286a7f4ee888b5a17a75f" \
+-d '{
+    "name": "Student",
+    "fatherName": "Father",
+    "motherName": "Mother Name",
+    "contactNo": "1234567890",
+    "DOB": "2005-01-15",
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "state": "NY"
+    },
+    "gender": "Male",
+    "class": 6
+}'
+
+###
+curl -X DELETE http://localhost:8080/student/delete/67afd0bcac1eda9c597eedce \
+-H "Content-Type: application/json" \
+-H "token: 8992e87e5967aa2d17b7adbfc17aadcdb799976e6a4a0fbc39d925bd7696d887"
+
+###
+curl -X GET http://localhost:8080/student/get/67afd0bcac1eda9c597eedce \
+-H "Content-Type: application/json"
+-H "token:8992e87e5967aa2d17b7adbfc17aadcdb799976e6a4a0fbc39d925bd7696d887"
+
+###
+curl -X GET http://localhost:8080/student/getall \
+-H "Content-Type: application/json"
+-H "token: 8992e87e5967aa2d17b7adbfc17aadcdb799976e6a4a0fbc39d925bd7696d887"
+
+
+###
+curl -X PUT  http://localhost:8080/student/update/67afd17c90b6079f9c0486e5 \
+-H "Content-Type: application/json" \
+-H "token:2d734f933657d8398de8f11702aedce2d9b3bf2d23f99f9885343c1b55127f42" \
+-d '{
+    "name": "Student",
+    "fatherName": "Father",
+    "motherName": "Mother Name",
+    "contactNo": "1234567890",
+    "DOB": "2005-01-15",
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "state": "NY"
+    },
+    "gender": "Male",
+    "class": 6
+}'
