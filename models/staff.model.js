@@ -28,10 +28,6 @@ const staffSchema = new Schema(
       type: String,
       required: true,
     },
-    token: {
-      type: String,
-      default: "",
-    },
     refreshToken: {
       type: String,
       default: "",

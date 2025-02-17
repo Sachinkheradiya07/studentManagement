@@ -1,6 +1,12 @@
 import Staff from "../models/staff.model.js";
 import bcrypt from "bcrypt";
-import crypto from "crypto";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+dotenv.config();
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../utils/tokenUtils.js";
 
 export const register = async (req, res) => {
   try {
@@ -80,22 +86,15 @@ export const login = async (req, res) => {
         .json({ success: false, message: "Incorrect password" });
     }
 
-    const token = crypto.randomBytes(32).toString("hex"); // Normal token
-    const refreshToken = crypto.randomBytes(32).toString("hex"); // Refresh token
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
 
-    //(7 days)
-    const refreshTokenExpiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000;
-
-    await Staff.updateOne(
-      { _id: user._id },
-      { refreshToken, refreshTokenExpiresAt }
-    );
+    await Staff.updateOne({ _id: user._id }, { refreshToken });
 
     return res.status(200).json({
       success: true,
-      token,
+      accessToken,
       refreshToken,
-      refreshTokenExpiresAt,
       role: user.role,
       message: `${user.role} logged in successfully`,
     });
@@ -103,6 +102,13 @@ export const login = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+// export const logoutUser = async (req, res) => {
+//   try {
+//   } catch (error) {
+//     return res.status(500).json({ success: false, message: error.message });
+//   }
+// };
 
 export const refreshToken = async (req, res) => {
   try {
@@ -113,23 +119,34 @@ export const refreshToken = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Refresh token is required" });
     }
-    const user = await Staff.findOne({ refreshToken });
-    if (!user) {
-      return res
-        .status(403)
-        .json({ success: false, message: "Invalid refresh token" });
-    }
-    if (Date.now() > user.refreshTokenExpiresAt) {
-      return res.status(403).json({
-        success: false,
-        message: "Refresh token expired. Please log in again.",
-      });
-    }
-    const newToken = crypto.randomBytes(32).toString("hex");
-    return res.status(200).json({
-      success: true,
-      token: newToken,
-    });
+
+    jwt.verify(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET,
+      async (err, decoded) => {
+        if (err) {
+          return res.status(403).json({
+            success: false,
+            message: "Invalid or expired refresh token. Please log in again.",
+          });
+        }
+
+        const user = await Staff.findById(decoded.id);
+        if (!user) {
+          return res
+            .status(404)
+            .json({ success: false, message: "User not found" });
+        }
+        const newAccessToken = generateAccessToken(user._id);
+        const newRefreshToken = generateRefreshToken(user._id);
+
+        return res.status(200).json({
+          success: true,
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken,
+        });
+      }
+    );
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }

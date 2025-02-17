@@ -1,4 +1,6 @@
-import { Router } from "express";
+import express from "express";
+import { authenticateToken } from "../middleware/authmiddleware.js";
+import { verifyAdmin } from "../middleware/varifyAdmin.js";
 import {
   registerTeacher,
   updateTeacherData,
@@ -7,12 +9,12 @@ import {
   getAllTeachers,
 } from "../controller/teacher.controller.js";
 
-const router = Router();
+const router = express.Router();
 
-router.post("/register", registerTeacher);
-router.put("/update/:id", updateTeacherData);
-router.delete("/delete/:id", deleteTeacher);
-router.get("/get/:id", getTeacherById);
-router.get("/getall", getAllTeachers);
+router.post("/register", authenticateToken, verifyAdmin, registerTeacher);
+router.put("/update/:id", authenticateToken, verifyAdmin, updateTeacherData);
+router.delete("/delete/:id", authenticateToken, verifyAdmin, deleteTeacher);
+router.get("/get/:id", authenticateToken, verifyAdmin, getTeacherById);
+router.get("/getall", authenticateToken, verifyAdmin, getAllTeachers);
 
 export default router;

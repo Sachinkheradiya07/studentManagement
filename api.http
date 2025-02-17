@@ -6,6 +6,7 @@ curl -X POST http://localhost:8080/staff/register \
     "email": "sachinkheradiya015@gmail.com",
     "password": "Sachin@123"
 }'
+
 ###
 curl -X POST http://localhost:8080/staff/register \
 -H "Content-Type: application/json" \
@@ -23,6 +24,7 @@ curl -X POST http://localhost:8080/staff/login \
     "email": "sachinkheradiya01@gmail.com",
    "password": "Sachin@123"
 }'
+
 ###
 curl -X POST http://localhost:8080/staff/login \
 -H "Content-Type: application/json" \
@@ -36,10 +38,10 @@ curl -X POST http://localhost:8080/staff/login \
 ###
 curl -X POST http://localhost:8080/teacher/register \
 -H "Content-Type: application/json" \
--H "token":"f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjI1NzMwMDRmNGZlODg3MTdjNDllZSIsImlhdCI6MTczOTc0MjQ0NCwiZXhwIjoxNzM5NzQyNDg5fQ.clF1TNmgZj7miEMkYXaUtT33J23hg2-WOouXYWG-Uvc" \
 -d '{
-    "name": "kesha",
-    "gender": "Female",
+    "name": "kishan",
+    "gender": "Male",
     "address": {
         "street": "123 Main St",
         "city": "New York",
@@ -47,10 +49,11 @@ curl -X POST http://localhost:8080/teacher/register \
     },
     "classes": [6, 7, 8]
 }'
+
 ###
-curl -X PUT  http://localhost:8080/teacher/update/67afce2469e40645d696fcdc \
+curl -X PUT http://localhost:8080/teacher/update/67b17ff6a545385a80cf6547 \
 -H "Content-Type: application/json" \
--H "token":"f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4NjAxOSwiZXhwIjoxNzM5Njg2OTE5fQ.QS_nkIITemIGjszVPMFM6zg0gN-SP3dOa5mnil0AcAs" \
 -d '{
     "name": "sachin",
     "gender": "Male",
@@ -61,28 +64,27 @@ curl -X PUT  http://localhost:8080/teacher/update/67afce2469e40645d696fcdc \
     },
     "classes": [1, 2, 3]
 }'
-###
 
-curl -X DELETE http://localhost:8080/teacher/delete/67afce2469e40645d696fcdc \
+###
+curl -X GET http://localhost:8080/teacher/get/67b182839d57192497ebe369 \
 -H "Content-Type: application/json" \
--H "token:f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4"
-
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4NjAxOSwiZXhwIjoxNzM5Njg2OTE5fQ.QS_nkIITemIGjszVPMFM6zg0gN-SP3dOa5mnil0AcAs"
 ###
 
-curl -X GET http://localhost:8080/teacher/get/67afce2469e40645d696fcdc \
--H "Content-Type: application/json" \
--H "token":f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4"
-
-###
 curl -X GET http://localhost:8080/teacher/getall \
 -H "Content-Type: application/json" \
--H "token":f06d9b4bd76e1c8f20df851abbf0660b1b71247f5853c9515fa04adb84aa8ec4"
-
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4NzA0MiwiZXhwIjoxNzM5Njg3OTQyfQ.89hp-argWQtH3MxyQtcsvNYqemxanOYvgFaHJ0yyDk4"
 ###
 
+curl -X DELETE http://localhost:8080/teacher/delete/67b17ff6a545385a80cf6547 \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4NjAxOSwiZXhwIjoxNzM5Njg2OTE5fQ.QS_nkIITemIGjszVPMFM6zg0gN-SP3dOa5mnil0AcAs"
+###
+
+//student
 curl -X POST http://localhost:8080/student/register \
 -H "Content-Type: application/json" \
--H "token:8992e87e5967aa2d17b7adbfc17aadcdb799976e6a4a0fbc39d925bd7696d887" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4ODc5NiwiZXhwIjoxNzM5Njg5Njk2fQ.KeY0C3NKzVVHpIMha1Tgo_J6iXmG9M5rvCpm6N8v1ks" \
 -d '{
     "name": "Dev",
     "fatherName": "Father",
@@ -99,9 +101,9 @@ curl -X POST http://localhost:8080/student/register \
 }'
 ###
 
-curl -X PUT  http://localhost:8080/student/update/67afd0bcac1eda9c597eedce \
+curl -X PUT  http://localhost:8080/student/update/67b188750e8df017679634a4 \
 -H "Content-Type: application/json" \
--H "token:521eeb11b35755bc5556f3905df81534f42429c6474286a7f4ee888b5a17a75f" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4Nzg3MywiZXhwIjoxNzM5Njg4NzczfQ.LdnjtuGaZ5-VfXdWc6UerCz6OdY3k3qRG-OLRjC66Vw" \
 -d '{
     "name": "Student",
     "fatherName": "Father",
@@ -118,25 +120,24 @@ curl -X PUT  http://localhost:8080/student/update/67afd0bcac1eda9c597eedce \
 }'
 
 ###
-curl -X DELETE http://localhost:8080/student/delete/67afd0bcac1eda9c597eedce \
--H "Content-Type: application/json" \
--H "token: 8992e87e5967aa2d17b7adbfc17aadcdb799976e6a4a0fbc39d925bd7696d887"
-
-###
-curl -X GET http://localhost:8080/student/get/67afd0bcac1eda9c597eedce \
+curl -X GET http://localhost:8080/student/get/67b188750e8df017679634a4 \
 -H "Content-Type: application/json"
--H "token:8992e87e5967aa2d17b7adbfc17aadcdb799976e6a4a0fbc39d925bd7696d887"
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4Nzg3MywiZXhwIjoxNzM5Njg4NzczfQ.LdnjtuGaZ5-VfXdWc6UerCz6OdY3k3qRG-OLRjC66Vw" \
 
 ###
 curl -X GET http://localhost:8080/student/getall \
 -H "Content-Type: application/json"
--H "token: 8992e87e5967aa2d17b7adbfc17aadcdb799976e6a4a0fbc39d925bd7696d887"
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4Nzg3MywiZXhwIjoxNzM5Njg4NzczfQ.LdnjtuGaZ5-VfXdWc6UerCz6OdY3k3qRG-OLRjC66Vw" \
+###
+curl -X DELETE http://localhost:8080/student/delete/67b188750e8df017679634a4 \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE1YzA2ZTYwMjgyM2QwNzI2MDIwNSIsImlhdCI6MTczOTY4Nzg3MywiZXhwIjoxNzM5Njg4NzczfQ.LdnjtuGaZ5-VfXdWc6UerCz6OdY3k3qRG-OLRjC66Vw" \
 
 
 ###
-curl -X PUT  http://localhost:8080/student/update/67afd17c90b6079f9c0486e5 \
+curl -X PUT "http://localhost:8080/student/update/67b18b7f0daded01d525159d" \
 -H "Content-Type: application/json" \
--H "token:2d734f933657d8398de8f11702aedce2d9b3bf2d23f99f9885343c1b55127f42" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjE4NTExOGYyZDZiOGYyMzk4YjRkNCIsImlhdCI6MTczOTY4ODg3NCwiZXhwIjoxNzM5Njg5Nzc0fQ.3UtqJKSJ2weQ8yfGxPWOIICwYWdnIi5mPMhmZcYFX0w" \
 -d '{
     "name": "Student",
     "fatherName": "Father",
@@ -151,3 +152,10 @@ curl -X PUT  http://localhost:8080/student/update/67afd17c90b6079f9c0486e5 \
     "gender": "Male",
     "class": 6
 }'
+
+###
+curl -X POST http://localhost:8080/staff/refresh_token \
+     -H "Content-Type: application/json" \
+     -d '{"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjI1NzMwMDRmNGZlODg3MTdjNDllZSIsImlhdCI6MTczOTc0MjIzOSwiZXhwIjoxNzQyMzM0MjM5fQ.nmZK8ZsKi25GCUI8Sn7Bxl7LUxd-SUwRV4H1vanMujo"}'
+
+
